@@ -20,6 +20,17 @@ const categoriesController = {
     const result = await categoriesService.create(validatedBody);
     res.status(201).json(result);
   },
+  findAll: async (req, res) => {
+    const token = req.headers.authorization;
+    const validatedToken = jwt.verifyToken(token);
+    if (validatedToken.error) {
+      return res
+        .status(validatedToken.error.code)
+        .json(validatedToken.error.message);
+    }
+    const result = await categoriesService.findAll();
+    res.status(200).json(result);
+  },
 };
 
 module.exports = categoriesController;
