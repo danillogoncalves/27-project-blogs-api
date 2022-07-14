@@ -21,6 +21,15 @@ const usersController = {
     const result = await usersService.findAll();
     res.status(200).json(result);
   },
+  findByPk: async (req, res) => {
+    const token = req.headers.authorization;
+    const validated = jwt.verifyToken(token);
+    if (validated.error) return res.status(validated.error.code).json(validated.error.message);
+    const { id } = req.params;
+    const result = await usersService.findByPk(id);
+    if (result.error) return res.status(result.error.code).json(result.error.message);
+    res.status(200).json(result);
+  },
 };
 
 module.exports = usersController;
