@@ -5,11 +5,11 @@ const loginService = {
   login: async (body) => {
     const user = await User.findOne({ where: { email: body.email } });
     if (!user || user.password !== body.password) {
-      return { error: { code: 400, message: 'Invalid fields' } };
+      return { error: { code: 400, message: { message: 'Invalid fields' } } };
     }
     const onlyDatavalues = user.toJSON();
-    const { id, password, image, ...userWithoutPassword } = onlyDatavalues;
-    return jwtService.createToken(userWithoutPassword);
+    const { id, password, image, ...userPublicInfo } = onlyDatavalues;
+    return jwtService.createToken(userPublicInfo);
   },
 };
 
