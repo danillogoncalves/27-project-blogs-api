@@ -5,7 +5,7 @@ const validateUser = (body) => {
     displayName: Joi.string().min(8).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(6).required(),
-    image: Joi.string(),
+    image: Joi.string().empty(''),
   });
 
   const { error, value } = schema.validate(body);

@@ -1,5 +1,6 @@
 const usersService = require('../services/usersService');
 const validateUser = require('../middlewares/validateUser');
+const jwt = require('../middlewares/jwt');
 
 const usersController = {
   create: async (req, res) => {
@@ -12,6 +13,13 @@ const usersController = {
     } catch (error) {
       return res.status(500).json({ message: 'Internal error', error: error.message });
     }
+  },
+  findAll: async (req, res) => {
+    const token = req.headers.authorization;
+    const validated = jwt.verifyToken(token);
+    if (validated.error) return res.status(validated.error.code).json(validated.error.message);
+    const result = await usersService.findAll();
+    res.status(200).json(result);
   },
 };
 
