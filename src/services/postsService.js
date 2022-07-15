@@ -39,9 +39,7 @@ const postsService = {
   update: async (body, id, email) => {
     const user = await User.findOne({ where: { email } });
     const post = await postsService.findByPk(id);
-    const t1 = user.toJSON().id;
-    const t2 = post.toJSON().userId;
-    if (t1 !== t2) {
+    if (user.toJSON().id !== post.toJSON().userId) {
       return { error: { code: 401, message: { message: 'Unauthorized user' } } };
     }
     await BlogPost.update(body, { where: { id } });
