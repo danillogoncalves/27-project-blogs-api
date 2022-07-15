@@ -55,6 +55,20 @@ const postsController = {
     if (updatePost.error) return res.status(updatePost.error.code).json(updatePost.error.message);
     res.status(200).json(updatePost);
   },
+  delete: async (req, res) => {
+    const token = req.headers.authorization;
+    const validatedToken = jwt.verifyToken(token);
+    if (validatedToken.error) {
+      return res.status(validatedToken.error.code).json(validatedToken.error.message);
+    }
+    const { id } = req.params;
+    const { email } = validatedToken;
+    const destroyPost = await postsService.destroy(id, email);
+    if (destroyPost.error) {
+      return res.status(destroyPost.error.code).json(destroyPost.error.message);
+    }
+    res.status(204).end();
+  },
 };
 
 module.exports = postsController;

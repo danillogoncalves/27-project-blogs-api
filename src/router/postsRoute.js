@@ -7,5 +7,6 @@ route.get('/:id', postsController.findByPk);
 route.get('/', postsController.findAll);
 route.post('/', postsController.create);
 route.put('/:id', postsController.update);
+route.delete('/:id', postsController.delete);
 
 module.exports = route;
