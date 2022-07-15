@@ -27,6 +27,17 @@ const postsController = {
     const posts = await postsService.findAll();
     res.status(200).json(posts);
   },
+  findByPk: async (req, res) => {
+    const token = req.headers.authorization;
+    const validatedToken = jwt.verifyToken(token);
+    if (validatedToken.error) {
+      return res.status(validatedToken.error.code).json(validatedToken.error.message);
+    }
+    const { id } = req.params;
+    const post = await postsService.findByPk(id);
+    if (post.error) return res.status(post.error.code).json(post.error.message);
+    res.status(200).json(post);
+  },
 };
 
 module.exports = postsController;
