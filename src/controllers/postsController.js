@@ -18,6 +18,15 @@ const postsController = {
     if (result.error) return res.status(result.error.code).json(result.error.message);
     res.status(201).json(result);
   },
+  findAll: async (req, res) => {
+    const token = req.headers.authorization;
+    const validatedToken = jwt.verifyToken(token);
+    if (validatedToken.error) {
+      return res.status(validatedToken.error.code).json(validatedToken.error.message);
+    }
+    const posts = await postsService.findAll();
+    res.status(200).json(posts);
+  },
 };
 
 module.exports = postsController;

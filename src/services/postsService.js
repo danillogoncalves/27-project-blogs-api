@@ -17,6 +17,15 @@ const postsService = {
     await PostCategory.bulkCreate(categoryIds.map((eId) => ({ postId: id, categoryId: eId })));
     return post;
   },
+  findAll: async () => {
+    const posts = await BlogPost.findAll({
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+    return posts;
+  },
 };
 
 module.exports = postsService;
