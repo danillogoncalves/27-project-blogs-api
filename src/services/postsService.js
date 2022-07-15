@@ -36,6 +36,18 @@ const postsService = {
     if (!post) return { error: { code: 404, message: { message: 'Post does not exist' } } };
     return post;
   },
+  update: async (body, id, email) => {
+    const user = await User.findOne({ where: { email } });
+    const post = await postsService.findByPk(id);
+    const t1 = user.toJSON().id;
+    const t2 = post.toJSON().userId;
+    if (t1 !== t2) {
+      return { error: { code: 401, message: { message: 'Unauthorized user' } } };
+    }
+    await BlogPost.update(body, { where: { id } });
+    const updatePost = await postsService.findByPk(id);
+    return updatePost;
+  },
 };
 
 module.exports = postsService;
