@@ -30,6 +30,17 @@ const usersController = {
     if (result.error) return res.status(result.error.code).json(result.error.message);
     res.status(200).json(result);
   },
+  destroy: async (req, res) => {
+    const token = req.headers.authorization;
+    const validated = jwt.verifyToken(token);
+    if (validated.error) return res.status(validated.error.code).json(validated.error.message);
+    const { email } = validated;
+    const destroyUser = await usersService.destroy(email);
+    if (destroyUser.error) {
+      return res.status(destroyUser.error.code).json(destroyUser.error.message);
+    }
+    res.status(204).end();
+  },
 };
 
 module.exports = usersController;
