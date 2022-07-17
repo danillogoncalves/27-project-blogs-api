@@ -69,6 +69,16 @@ const postsController = {
     }
     res.status(204).end();
   },
+  findAllSeach: async (req, res) => {
+    const token = req.headers.authorization;
+    const validatedToken = jwt.verifyToken(token);
+    if (validatedToken.error) {
+      return res.status(validatedToken.error.code).json(validatedToken.error.message);
+    }
+    const { q } = req.query;
+    const posts = await postsService.findAllSeach(q);
+    res.status(200).json(posts);
+  },
 };
 
 module.exports = postsController;
