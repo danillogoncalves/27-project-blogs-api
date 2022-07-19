@@ -99,4 +99,4 @@
 
 #
 
-Todos os projetos da [Trybe](https://www.betrybe.com/) utilizam `listers`, `Git` e `GitHub`.<br/>
+Todos os projetos da [Trybe](https://www.betrybe.com/) utilizam `linters`, `Git` e `GitHub`.<br/>
