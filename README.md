@@ -10,7 +10,7 @@
     <li><a href="https://expressjs.com/">Express<a/></li>
     <li><a href="https://sequelize.org/">Sequelize</a></li>
     <li><a href="https://developer.mozilla.org/pt-BR/docs/Glossary/CRUD">CRUD</a></li>
-    <li><a href="">MSC</a></li>
+    <li><a href="https://www.toptal.com/express-js/nodejs-typescript-rest-api-pt-1">MSC</a></li>
     <li><a href="https://developer.mozilla.org/pt-BR/docs/Glossary/REST">REST</a></li>
   </ul>
 </div>
